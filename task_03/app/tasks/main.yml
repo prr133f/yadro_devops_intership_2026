@@ -1,0 +1,38 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for app
+- name: Pull image
+  community.docker.docker_image_pull:
+    name: ghcr.io/prr133f/yadro_devops_intership_2026
+    tag: v0.1
+
+- name: Start container block
+  block:
+    - name: Start container
+      community.docker.docker_container:
+        name: "{{ container_name }}"
+        image: ghcr.io/prr133f/yadro_devops_intership_2026:latest
+        state: started
+        detach: false
+        output_logs: true
+      register: container_output
+
+  always:
+    - name: Get information about the container
+      community.docker.docker_container_info:
+        name: "{{ container_name }}"
+      register: container_details
+
+    - name: Display exit code
+      ansible.builtin.debug:
+        msg: "{{ container_details.container['State']['ExitCode'] }}"
+      when: container_details.exists
+
+    - name: Show container logs
+      debug:
+        msg: "{{ container_output.container.Output }}"
+
+    - name: Remove container
+      community.docker.docker_container:
+        name: "{{ container_name }}"
+        state: absent

@@ -1,0 +1,70 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for docker
+- name: Update repos
+  become: true
+  apt:
+    update_cache: yes
+
+- name: Add docker repository
+  shell:
+    cmd: |
+      sudo apt update
+      sudo apt install ca-certificates curl
+      sudo install -m 0755 -d /etc/apt/keyrings
+      sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+      sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+      sudo tee /etc/apt/sources.list.d/docker.sources <<EOF
+      Types: deb
+      URIs: https://download.docker.com/linux/ubuntu
+      Suites: $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}")
+      Components: stable
+      Architectures: $(dpkg --print-architecture)
+      Signed-By: /etc/apt/keyrings/docker.asc
+      EOF
+
+      sudo apt update
+
+- name: Install Docker
+  become: true
+  apt:
+    name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-buildx-plugin
+      - docker-compose-plugin
+    state: present
+
+- name: Create docker group
+  become: true
+  group:
+    name: docker
+    state: present
+
+- name: Add current user to Docker group
+  become: true
+  user:
+    name: "{{ ansible_user }}"
+    groups: docker
+    append: yes
+
+- name: Enable Docker service
+  become: true
+  service:
+    name: docker
+    enabled: yes
+    state: started
+  notify:
+    - Check Docker Engine
+
+- name: Check Docker installation
+  shell:
+    cmd: docker --version
+  register: docker_version
+  ignore_errors: true
+
+- name: Show Docker version
+  debug:
+    msg: "{{ docker_version.stdout }}"

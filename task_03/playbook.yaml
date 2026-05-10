@@ -1,0 +1,10 @@
+- hosts: all
+  tasks:
+    - name: Check OS family
+      debug:
+        msg: "OS family: {{ ansible_facts['os_family'] }}"
+
+- hosts: all
+  roles:
+    - docker
+    - app

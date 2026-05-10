@@ -1,5 +1,23 @@
 [![Publish Docker image](https://github.com/prr133f/yadro_devops_intership_2026/actions/workflows/docker-image.yml/badge.svg)](https://github.com/prr133f/yadro_devops_intership_2026/actions/workflows/docker-image.yml)
 
+# Порядок решения задания
+## 1
+Был написан простой скрипт на Python с использованием requests который посылает 5 запросов к сервису httpstat.us
+
+## 2
+Скрипт был упакован в Docker образ, зависимости качаются в образ из requirements.txt
+
+В Github Actions образ собирается и выгружается в GHCR (GitHub Container Registry)
+
+## 3
+Создано 2 ансибл роли: Docker и App
+
+Docker роль отвечает за установку Docker и настройку сервиса.
+
+App роль отвечает за развертывание приложения в Docker контейнере.
+
+В плейбуке роли объединяются, пингуются хосты и определяется ОС хоста.
+
 # Возникшие проблемы и их решения
 Проблема: Сервис httpstat.us оказался недоступен
 

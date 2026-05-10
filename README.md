@@ -1,4 +1,4 @@
-[![Publish Docker image](https://github.com/prr133f/yadro_devops_intership_2026/actions/workflows/docker-image.yml/badge.svg)](https://github.com/prr133f/yadro_devops_intership_2026/actions/workflows/docker-image.yml)
+[![Publish Docker image](https://github.com/prr133f/yadro_devops_intership_2026/actions/workflows/docker-image.yml/badge.svg?branch=main&event=workflow_dispatch)](https://github.com/prr133f/yadro_devops_intership_2026/actions/workflows/docker-image.yml)
 
 # Порядок решения задания
 ## 1

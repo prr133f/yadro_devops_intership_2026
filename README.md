@@ -1,4 +1,4 @@
-[![Publish Docker image](https://github.com/prr133f/yadro_devops_intership_2026/actions/workflows/docker-image.yml/badge.svg?branch=main)](https://github.com/prr133f/yadro_devops_intership_2026/actions/workflows/docker-image.yml)
+[![Publish Docker image](https://github.com/prr133f/yadro_devops_intership_2026/actions/workflows/docker-image.yml/badge.svg)](https://github.com/prr133f/yadro_devops_intership_2026/actions/workflows/docker-image.yml)
 
 # Возникшие проблемы и их решения
 Проблема: Сервис httpstat.us оказался недоступен
